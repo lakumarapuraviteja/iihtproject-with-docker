@@ -1,0 +1,9 @@
+.navbg{
+    background-color:rgb(3, 32, 85);
+
+}
+.bottomnav{
+    position: fixed;
+	width: 100%;
+    bottom: 0;
+}

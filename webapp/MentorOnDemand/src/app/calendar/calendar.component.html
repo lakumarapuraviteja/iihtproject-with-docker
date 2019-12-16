@@ -1,0 +1,13 @@
+   <div class="row my-5">
+   <div class="col-2"><b>Name of the trainee</b></div>
+    <div class="col-2"><b>Technology</b></div>
+    <div class="col-2"><b>Training startDate</b></div>
+    <div class="col-2"><b>Training EndDate</b></div>
+</div>
+<div *ngFor="let training of trainingList" class="row my-3">
+    <div class="col-2">{{training.user.firstName}} {{training.user.lastName}}</div>
+    <div class="col-2">{{training.skill.name}}</div>
+    <div class="col-2">{{training.startDate}}</div>
+    <div class="col-2">{{training.endDate}}</div>
+    
+</div>

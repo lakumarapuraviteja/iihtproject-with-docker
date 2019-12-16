@@ -1,0 +1,41 @@
+version: '3'
+services:
+  mentor_on_damand-mysql:
+    image: mysql:8.0.18
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - d:/mentor_on_damand:/var/lib/ormlearn
+      - ./dbscripts:/docker-entrypoint-initdb.d
+
+  eureka-discovery-service:
+    image: eureka-discovery-app
+    build: eureka-discovery-service/.
+    ports:
+      - 8761:8761
+
+  user-login-microservice:
+    image: user-login-app
+    build: user-login-service/.
+    ports:
+      - 9996:9996
+    depends_on:
+      - mentor_on_damand-mysql
+    links:
+      - mentor_on_damand-mysql
+
+  zuul-service:
+    image: zuul-gateway-app
+    build: zuul-gateway/.
+    ports:
+      - 8083:8083
+    depends_on:
+      - mentor_on_damand-mysql
+      - eureka-discovery-service
+      - user-login-microservice
+    links:
+      - mentor_on_damand-mysql
+      - eureka-discovery-service
+      - user-login-microservice
